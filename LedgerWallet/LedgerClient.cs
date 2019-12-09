@@ -55,6 +55,19 @@ namespace LedgerWallet
 				(byte)addressType, bytes, OK, cancellation).ConfigureAwait(false);
 			return new GetWalletPubKeyResponse(response);
 		}
+		
+		public async Task<byte[]> GetWalletPubKeyBytesAsync(KeyPath keyPath, AddressType addressType = AddressType.Legacy, bool display = false, CancellationToken cancellation = default(CancellationToken))
+		{
+			Guard.AssertKeyPath(keyPath);
+			var bytes = Serializer.Serialize(keyPath);
+			//bytes[0] = 10;
+			var response = await ExchangeSingleAPDUAsync(
+				LedgerWalletConstants.LedgerWallet_CLA,
+				LedgerWalletConstants.LedgerWallet_INS_GET_WALLET_PUBLIC_KEY,
+				(byte)(display ? 1 : 0),
+				(byte)addressType, bytes, OK, cancellation).ConfigureAwait(false);
+			return response;
+		}
 
 		public async Task<GetWalletPubKeyResponse> GetWalletMasterKeyAsync()
 		{
@@ -409,6 +422,11 @@ namespace LedgerWallet
 			BufferUtils.WriteUint32BE(data, (uint)lockTime);
 			data.WriteByte((byte)sigHashType);
 			return CreateAPDU(LedgerWalletConstants.LedgerWallet_CLA, LedgerWalletConstants.LedgerWallet_INS_HASH_SIGN, 0x00, 0x00, data.ToArray());
+		}
+
+		public byte[] Sign(byte[] data)
+		{
+			return CreateAPDU(LedgerWalletConstants.LedgerWallet_CLA, LedgerWalletConstants.LedgerWallet_INS_HASH_SIGN, 0x00, 0x00, data);
 		}
 	}
 

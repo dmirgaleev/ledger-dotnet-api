@@ -4,7 +4,7 @@ namespace LedgerWallet
 {
 	public class LedgerWalletConstants
     {
-        public const byte LedgerWallet_CLA = 224;
+        public const byte LedgerWallet_CLA = 0x80;
 
         public const byte LedgerWallet_ADM_CLA = 208;
 
@@ -22,7 +22,7 @@ namespace LedgerWallet
 
         public const byte LedgerWallet_INS_SET_COMM_PROTOCOL = 42;
 
-        public const byte LedgerWallet_INS_GET_WALLET_PUBLIC_KEY = 64;
+        public const byte LedgerWallet_INS_GET_WALLET_PUBLIC_KEY = 0x02;
 
         public const byte LedgerWallet_INS_GET_TRUSTED_INPUT = 66;
 
@@ -30,7 +30,7 @@ namespace LedgerWallet
 
         public const byte LedgerWallet_INS_HASH_INPUT_FINALIZE = 70;
 
-        public const byte LedgerWallet_INS_HASH_SIGN = 72;
+        public const byte LedgerWallet_INS_HASH_SIGN = 0x04;
 
         public const byte LedgerWallet_INS_HASH_INPUT_FINALIZE_FULL = 74;
 

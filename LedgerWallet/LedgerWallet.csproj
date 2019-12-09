@@ -12,4 +12,8 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Netezos.Keys" Version="0.9.1" />
+    <PackageReference Include="Netezos.Rpc" Version="1.1.1" />
+  </ItemGroup>
 </Project>
